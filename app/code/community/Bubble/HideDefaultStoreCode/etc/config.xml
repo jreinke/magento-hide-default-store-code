@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Bubble_HideDefaultStoreCode>
+            <version>1.0.0</version>
+        </Bubble_HideDefaultStoreCode>
+    </modules>
+    <global>
+        <helpers>
+            <bubble_hdsc>
+                <class>Bubble_HideDefaultStoreCode_Helper</class>
+            </bubble_hdsc>
+        </helpers>
+        <models>
+            <bubble_hdsc>
+                <class>Bubble_HideDefaultStoreCode_Model</class>
+            </bubble_hdsc>
+            <core>
+                <rewrite>
+                    <store>Bubble_HideDefaultStoreCode_Model_Store</store>
+                </rewrite>
+            </core>
+        </models>
+        <events>
+            <controller_front_init_before>
+                <observers>
+                    <bubble_hdsc>
+                        <class>bubble_hdsc/observer</class>
+                        <method>onFrontInitBefore</method>
+                    </bubble_hdsc>
+                </observers>
+            </controller_front_init_before>
+        </events>
+    </global>
+    <default>
+        <web>
+            <url>
+                <hide_default_store>0</hide_default_store>
+            </url>
+        </web>
+    </default>
+</config>
