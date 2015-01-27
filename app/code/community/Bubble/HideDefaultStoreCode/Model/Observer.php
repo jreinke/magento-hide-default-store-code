@@ -16,11 +16,15 @@ class Bubble_HideDefaultStoreCode_Model_Observer
             /** @var $front Mage_Core_Controller_Varien_Front */
             $front = $observer->getEvent()->getFront();
             $request = $front->getRequest();
-            $pieces = explode('/', $request->getRequestUri());
-            if (!in_array($pieces[1], $this->_getStoreCodes())) {
+            $requestUri = $request->getRequestUri();
+            $requestUri = str_replace($request->getServer('SCRIPT_NAME'), '', $requestUri);
+            $requestUri = trim($requestUri, '/');
+            $pieces = explode('/', $requestUri);
+            if (!in_array($pieces[0], $this->_getStoreCodes())) {
                 $storeCode = $this->_getDefaultStore()->getCode();
                 if (!empty($storeCode)) {
-                    $request->setRequestUri('/' . $storeCode . $request->getRequestUri());
+                    $requestUri = $request->getServer('SCRIPT_NAME') . '/' . $storeCode . '/' . $requestUri;
+                    $request->setRequestUri($requestUri);
                     $request->setActionName(null);
                 }
             }
